@@ -21,6 +21,11 @@ test {
     useJUnitPlatform()
 }
 
-reports ('reports') {
-   tasks.javadoc()
+tasks.register('reports') {
+   dependsOn tasks.javadoc
+   dependsOn tasks.test
+}
+
+tasks.register('deployReports') {
+	dependsOn tasks.reports
 }
