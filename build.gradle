@@ -33,7 +33,6 @@ tasks.register('deployReports') {
 
 ////////  Website publication on GitHub pages ///////////////////
 
-
 task clonePages() {                                       
     doLast {
         mkdir 'build/gh-pages'
@@ -43,14 +42,13 @@ task clonePages() {
 		println("pagesDir=" + pagesDir)
         project.delete {
             delete pagesDir
-        }
+        } 
         def grgit = git.clone {
             dir = pagesDir
             uri = thisRepo
             bare = false
             refToCheckout = 'gh-pages'
-        }
-		println("After grgit define")
+        } 
         grgit.checkout {
             branch = 'gh-pages'
         }
@@ -58,12 +56,12 @@ task clonePages() {
 }
 
 task copyReports (type: Copy, dependsOn: ['deployReports', 'clonePages']) { 
-    from "$buildDir/docs"
+	from "$buildDir/docs"
     into "$buildDir/gh-pages"
 	from "$buildDir/reports"
 	into "$buildDir/gh-pages"
 }
-/*
+
 task updateGHPages (dependsOn: 'copyReports') {            
     group = "Reporting"
     description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
@@ -78,6 +76,6 @@ task updateGHPages (dependsOn: 'copyReports') {
             message = "Updating web pages"
         }
         grgit.push {}
+		grgit.close()
     }
 }
-*/
