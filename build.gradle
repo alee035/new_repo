@@ -76,6 +76,5 @@ task updateGHPages (dependsOn: 'copyReports') {
             message = "Updating web pages"
         }
         grgit.push {}
-		grgit.close()
     }
 }
