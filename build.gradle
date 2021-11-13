@@ -20,3 +20,7 @@ test {
     ignoreFailures = true
     useJUnitPlatform()
 }
+
+reports ('reports') {
+   tasks.javadoc()
+}
