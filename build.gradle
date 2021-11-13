@@ -22,13 +22,13 @@ test {
     useJUnitPlatform()
 }
 
-tasks.register('reports') {
+task reports() {
    dependsOn tasks.javadoc
    dependsOn tasks.test
 }
 
-tasks.register('deployReports') {
-	dependsOn tasks.reports
+task deployReports(dependsOn: ['reports', 'updateGHPages']) {
+
 }
 
 ////////  Website publication on GitHub pages ///////////////////
@@ -55,7 +55,7 @@ task clonePages() {
     }
 }
 
-task copyReports (type: Copy, dependsOn: ['deployReports', 'clonePages']) { 
+task copyReports (type: Copy, dependsOn: 'clonePages') { 
 	from "$buildDir/docs"
     into "$buildDir/gh-pages"
 	from "$buildDir/reports"
