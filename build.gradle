@@ -36,7 +36,7 @@ task deployReports(dependsOn: 'updateGHPages' ) {
 task clonePages() {                                       
     doLast {
         mkdir 'build/gh-pages'
-        def thisRepo = rootProject.toString()
+        def thisRepo = rootProject.projectDir.toString()
         def pagesDir = "$buildDir/gh-pages"
         project.delete {
             delete pagesDir
