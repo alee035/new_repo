@@ -1,3 +1,4 @@
 // Empty settings file
 
 include 'src'
+rootProject.name = 'GitLab_2_Redo'
