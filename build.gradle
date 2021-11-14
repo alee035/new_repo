@@ -22,13 +22,13 @@ test {
     useJUnitPlatform()
 }
 
-task reports() {
+tasks.register('reports') {
    dependsOn tasks.javadoc
    dependsOn tasks.test
 }
 
-task deployReports(dependsOn: 'updateGHPages') {
-
+task deployReports(dependsOn: 'updateGHPages' ) {
+	dependsOn tasks.reports
 }
 
 ////////  Website publication on GitHub pages ///////////////////
@@ -43,7 +43,7 @@ task clonePages() {
         } 
         def grgit = git.clone {
             dir = pagesDir
-            uri = 'file:' + thisRepo
+            uri = thisRepo
             bare = false
             refToCheckout = 'gh-pages'
         } 
@@ -55,13 +55,12 @@ task clonePages() {
 
 task copyReports (type: Copy, dependsOn: ['reports', 'clonePages']) { 
 	from "$buildDir/docs"
-    into "$buildDir/gh-pages"
+    into "$buildDir/gh-pages/docs"
 	from "$buildDir/reports"
-	into "$buildDir/gh-pages"
+	into "$buildDir/gh-pages/reports"
 }
 
-task updateGHPages (dependsOn: 'copyReports') {            
-    group = "Reporting"
+task updateGHPages (dependsOn: 'copyReports') { 
     description  'Copies reports to the gh-pages branch in preparation for a future push to GitHub'
     doLast {
         def pagesDir = "$buildDir/gh-pages"
@@ -70,9 +69,12 @@ task updateGHPages (dependsOn: 'copyReports') {
         }
         grgit.add (update: false, patterns: ['reports/'])
         grgit.add (update: true, patterns: ['reports/'])
+		grgit.add (update: false, patterns: ['docs/'])
+        grgit.add (update: true, patterns: ['docs/'])
         grgit.commit {
             message = "Updating web pages"
         }
         grgit.push {}
     }
+	
 }
