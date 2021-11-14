@@ -45,11 +45,10 @@ task clonePages() {
         }
         def grgit = git.clone {
             dir = pagesDir
-            uri = thisRepo
+            uri = 'file:' + thisRepo
             bare = false
 			refToCheckout = 'gh-pages'
         }
-		println(grgit)
         grgit.checkout {
             branch = 'gh-pages'
         }
