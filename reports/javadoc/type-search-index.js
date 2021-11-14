@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"edu.odu.cs.cs350","l":"Author"},{"p":"edu.odu.cs.cs350","l":"Vocabulary"}];updateSearchResults();
