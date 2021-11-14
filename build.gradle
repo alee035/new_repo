@@ -27,7 +27,7 @@ task reports() {
    dependsOn tasks.test
 }
 
-task deployReports(dependsOn: ['reports', 'updateGHPages']) {
+task deployReports(dependsOn: 'updateGHPages') {
 
 }
 
@@ -55,7 +55,7 @@ task clonePages() {
     }
 }
 
-task copyReports (type: Copy, dependsOn: 'clonePages') { 
+task copyReports (type: Copy, dependsOn: ['reports', 'clonePages']) { 
 	from "$buildDir/docs"
     into "$buildDir/gh-pages"
 	from "$buildDir/reports"
