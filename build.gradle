@@ -38,14 +38,12 @@ task clonePages() {
         mkdir 'build/gh-pages'
         def thisRepo = rootProject.projectDir.toString()
         def pagesDir = "$buildDir/gh-pages"
-		println("thisRepo=" + thisRepo)
-		println("pagesDir=" + pagesDir)
         project.delete {
             delete pagesDir
         } 
         def grgit = git.clone {
             dir = pagesDir
-            uri = thisRepo
+            uri = 'file:' + thisRepo
             bare = false
             refToCheckout = 'gh-pages'
         } 
