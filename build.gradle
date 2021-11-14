@@ -28,7 +28,7 @@ tasks.register('reports') {
 }
 
 task deployReports(dependsOn: 'updateGHPages' ) {
-	dependsOn tasks.reports
+	
 }
 
 ////////  Website publication on GitHub pages ///////////////////
@@ -45,8 +45,8 @@ task clonePages() {
             dir = pagesDir
             uri = thisRepo
             bare = false
-            refToCheckout = 'gh-pages'
-        } 
+				refToCheckout = 'gh-pages'
+        }
         grgit.checkout {
             branch = 'gh-pages'
         }
@@ -55,9 +55,13 @@ task clonePages() {
 
 task copyReports (type: Copy, dependsOn: ['reports', 'clonePages']) { 
 	from "$buildDir/docs"
-    into "$buildDir/gh-pages/docs"
+	{
+		into "$buildDir/gh-pages/docs"
+	}
 	from "$buildDir/reports"
-	into "$buildDir/gh-pages/reports"
+	{
+		into "$buildDir/gh-pages/reports"
+	}
 }
 
 task updateGHPages (dependsOn: 'copyReports') { 
