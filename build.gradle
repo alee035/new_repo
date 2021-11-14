@@ -45,7 +45,7 @@ task clonePages() {
             dir = pagesDir
             uri = 'file:' + thisRepo
             bare = false
-				refToCheckout = 'gh-pages'
+			refToCheckout = 'gh-pages'
         }
         grgit.checkout {
             branch = 'gh-pages'
